@@ -27,7 +27,7 @@ fetchButton.addEventListener("click", async () => {
 
                 if (Array.isArray(data)) {
                         displayPlaylist(data.result);
-                } else if (data.status === "success" && data.result) {
+                } else if (data.status && data.result) {
                         displayTrack(data.result);
                 } else {
                         showAlert("error", "No results found.");
@@ -62,19 +62,15 @@ function displayPlaylist(tracks) {
 function displayTrack(track) {
         resultDiv.classList.remove("hidden");
         playlistDiv.classList.add("hidden");
-
         const { title, artis, durasi, image, download } = track;
-
         document.getElementById("title").textContent = title;
-        document.getElementById("artist").textContent = `Artist: ${artis}`;
+        document.getElementById("artis").textContent = `Artist: ${artis}`;
         document.getElementById("duration").textContent =
-                `Duration: ${secondsToMinutes(durasi)} minutes`;
+                `Duration: ${durasi} second`;
         document.getElementById("image").src = image;
-
         const downloadLink = document.getElementById("downloadLink");
         downloadLink.href = download;
         downloadLink.setAttribute("download", title);
-
         // Fetch preview audio
         const previewAudio = document.getElementById("preview");
         previewAudio.src = download;
@@ -83,15 +79,15 @@ function displayTrack(track) {
         showAlert("success", "Download success!");
 }
 
-function showTrackDetail(name, artist, duration_ms, thumbnail, link) {
+function showTrackDetail(name, artis, duration_ms, thumbnail, link) {
         Swal.fire({
                 title: title,
                 html: `
       <img src="${thumbnail}" alt="${name}" class="mb-4">
       <p class="font-semibold">Artist:</p>
-      <p>${artist}</p>
+      <p>${artis}</p>
       <p class="font-semibold">Duration:</p>
-      <p>${secondsToMinutes(duration_ms)}</p>
+      <p>${duration_ms}</p>
     `,
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
