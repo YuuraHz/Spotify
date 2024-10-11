@@ -12,23 +12,23 @@ fetchButton.addEventListener("click", async () => {
 			return Swal.fire({
 				icon: "error",
 				title: "Oops...",
-				text: "Enter Url or Music Title",
+				text: "Please enter a Spotify URL or Music Title!",
 			});
 		}
 
 		loadingDiv.classList.remove("hidden");
 		const isURL = query.startsWith("http");
 		const url = isURL
-			? `https://api.yoshida.my.id/api/downloader/spotify?url=${encodeURIComponent(query)}`
-			: `https://api.yoshida.my.id/api/internet/spotify?query=${encodeURIComponent(query)}`;
+			? `https://itzpire.com/download/aio?url=${encodeURIComponent(query)}`
+			: `https://spotifyapi.caliphdev.com/api/search/tracks?q=${encodeURIComponent(query)}`;
 		const response = await fetch(url);
 		const data = await response.json();
 		loadingDiv.classList.add("hidden");
 
 		if (Array.isArray(data)) {
 			displayPlaylist(data);
-		} else if (data.status && data.result) {
-			displayTrack(data.result);
+		} else if (data.status === "success" && data.data) {
+			displayTrack(data.data);
 		} else {
 			showAlert("error", "No results found.");
 		}
@@ -43,12 +43,12 @@ function displayPlaylist(tracks) {
 		.map(
 			(track) => `
       <div class="flex items-center py-2 border-b border-gray-700">
-        <img src="${track.result.image}" alt="${track.result.name}" class="w-12 h-12 rounded-md mr-4">
+        <img src="${track.thumbnail}" alt="${track.title}" class="w-12 h-12 rounded-md mr-4">
         <div>
-          <p class="font-semibold">${track.result.name}</p>
-          <p class="text-sm">${track.result.artists}</p>
+          <p class="font-semibold">${track.title}</p>
+          <p class="text-sm">${track.artist}</p>
         </div>
-        <button class="ml-auto bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg" onclick="showTrackDetail('${track.result.name}', '${track.result.artist}', '${track.result.duration_ms}', '${track.result.image}', '${track.result.link}')">
+        <button class="ml-auto bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg" onclick="showTrackDetail('${track.title}', '${track.artist}', '${track.duration}', '${track.thumbnail}', '${track.url}')">
           Detail
         </button>
       </div>
@@ -63,12 +63,12 @@ function displayTrack(track) {
 	resultDiv.classList.remove("hidden");
 	playlistDiv.classList.add("hidden");
 
-	const { title, artis, durasi, image, download } = track;
+	const { title, artist, duration, image, download } = track;
 
 	document.getElementById("title").textContent = title;
-	document.getElementById("artis").textContent = `Artist: ${artis}`;
-	document.getElementById("durasi").textContent =
-		`Duration: ${secondsToMinutes(durasi)} minutes`;
+	document.getElementById("artist").textContent = `Artist: ${artist}`;
+	document.getElementById("duration").textContent =
+		`Duration: ${secondsToMinutes(duration)} minutes`;
 	document.getElementById("image").src = image;
 
 	const downloadLink = document.getElementById("downloadLink");
