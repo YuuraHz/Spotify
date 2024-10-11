@@ -19,8 +19,8 @@ fetchButton.addEventListener("click", async () => {
 		loadingDiv.classList.remove("hidden");
 		const isURL = query.startsWith("http");
 		const url = isURL
-			? `https://itzpire.com/download/aio?url=${encodeURIComponent(query)}`
-			: `https://spotifyapi.caliphdev.com/api/search/tracks?q=${encodeURIComponent(query)}`;
+			? `https://api.yoshida.my.id/api/downloader/spotify?url=${encodeURIComponent(query)}`
+			: `https://api.yoshida.my.id/api/internet/spotify?query=${encodeURIComponent(query)}`;
 		const response = await fetch(url);
 		const data = await response.json();
 		loadingDiv.classList.add("hidden");
