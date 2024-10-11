@@ -1,10 +1,6 @@
 # Spotify Search & Download Website
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/miftahganzz/Spotify-Website/main/assets/IMG-20240504-WA0023.jpg" alt="Spotify Screen Shot">
-</p>
-
-<p align="center">
 <a href="https://miftah.me/Spotify-Website" target="_blank">Visit Now 🚀</a>
 </p>
 
