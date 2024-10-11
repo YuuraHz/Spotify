@@ -12,12 +12,12 @@ fetchButton.addEventListener("click", async () => {
 			return Swal.fire({
 				icon: "error",
 				title: "Oops...",
-				text: "Please enter a Spotify URL or Music Title!",
+				text: "Enter url or spotify link",
 			});
 		}
 
 		loadingDiv.classList.remove("hidden");
-		const isURL = query.startsWith("http");
+		const isURL = query.startsWith("https");
 		const url = isURL
 			? `https://api.yoshida.my.id/api/downloader/spotify?url=${encodeURIComponent(query)}`
 			: `https://api.yoshida.my.id/api/internet/spotify?query=${encodeURIComponent(query)}`;
@@ -27,7 +27,7 @@ fetchButton.addEventListener("click", async () => {
 
 		if (Array.isArray(data)) {
 			displayPlaylist(data);
-		} else if (data.status === true && data.result) {
+		} else if (data.status && data.result) {
 			displayTrack(data.result);
 		} else {
 			showAlert("error", "No results found.");
