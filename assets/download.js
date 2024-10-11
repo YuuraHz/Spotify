@@ -17,7 +17,7 @@ fetchButton.addEventListener("click", async () => {
 		}
 
 		loadingDiv.classList.remove("hidden");
-		const isURL = query.startsWith("https");
+		const isURL = query.startsWith("http");
 		const url = isURL
 			? `https://api.yoshida.my.id/api/downloader/spotify?url=${encodeURIComponent(query)}`
 			: `https://api.yoshida.my.id/api/internet/spotify?query=${encodeURIComponent(query)}`;
