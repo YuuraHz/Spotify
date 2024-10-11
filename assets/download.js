@@ -12,7 +12,7 @@ fetchButton.addEventListener("click", async () => {
 			return Swal.fire({
 				icon: "error",
 				title: "Oops...",
-				text: "Enter url or spotify link",
+				text: "Enter Url or Music Title",
 			});
 		}
 
